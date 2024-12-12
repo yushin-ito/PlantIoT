@@ -58,12 +58,17 @@ def main():
         while True:
             if keyboard.read_event(): 
                 break
-            
+
+            # countを取得する
+            if os.path.exists(count_file_path):
+                with open(count_file_path, "r") as f:
+                    count = int(f.read())
+
             # actionテーブルから取得する
             params = {
                 "table": "action",
                 "action": "select",
-                "query": "deviceId=eq.00000001&count=eq.1"
+                "query": f"deviceId=eq.00000001&count=eq.{count}"
             }
             request_body = json.dumps({
                 "body": json.dumps(params)
