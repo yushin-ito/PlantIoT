@@ -57,19 +57,32 @@ def main():
         "body": json.dumps(data)
     })
 
-    print("did")
-
-    # HTTPS POSTリクエストの送信
     response = sim7080g.https_post(
         url=endpoint,
         headers=headers,
         body=body
     )
 
-    # レスポンスの表示
+    print("Response:", response)
+
+    data = {
+        "table": "measure",
+        "action": "insert",
+        "query": "deviceId=eq.00000001&count=eq.1"
+    }
+
+    body = json.dumps({
+        "body": json.dumps(data)
+    })
+
+    response = sim7080g.https_post(
+        url=endpoint,
+        headers=headers,
+        body=body
+    )
+
     print("Response:", response)
     
-    # SIM7080Gの終了処理
     sim7080g.close()
 
 if __name__ == "__main__":
